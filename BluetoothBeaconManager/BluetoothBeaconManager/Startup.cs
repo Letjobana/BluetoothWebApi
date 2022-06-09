@@ -29,6 +29,7 @@ namespace BluetoothBeaconManager
             services.AddScoped<IApiRepository, ApiRepository>();
             services.AddScoped<IBeaconRepository, BeaconRepository>();
             services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BluetoothBeaconManager", Version = "v1" });
