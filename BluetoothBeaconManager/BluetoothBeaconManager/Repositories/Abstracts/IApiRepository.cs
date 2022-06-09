@@ -7,7 +7,7 @@ namespace BluetoothBeaconManager.Repositories.Abstracts
     public interface IApiRepository
     {
         bool Aunthenticate(API api);
-        User GetUserByUseName(string name);
+        User GetUserByUserName(string name);
         IEnumerable<Device> GetActiveDevices();
         IEnumerable<User> GetUsers();
         Device GetDeviceById(string id);

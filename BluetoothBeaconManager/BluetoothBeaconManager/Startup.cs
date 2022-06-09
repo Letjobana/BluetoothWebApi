@@ -1,4 +1,6 @@
 using BluetoothBeaconManager.Data;
+using BluetoothBeaconManager.Repositories.Abstracts;
+using BluetoothBeaconManager.Repositories.Concrets;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +26,7 @@ namespace BluetoothBeaconManager
 
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddScoped<IApiRepository, ApiRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BluetoothBeaconManager", Version = "v1" });
