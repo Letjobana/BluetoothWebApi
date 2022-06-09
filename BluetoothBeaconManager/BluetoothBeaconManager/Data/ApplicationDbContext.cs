@@ -8,6 +8,7 @@ namespace BluetoothBeaconManager.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<BluetoothStatusData> BluetoothStatusDatas { get; set; }
+        public DbSet<LastRequest> LastRequests { get; set; }
+        public DbSet<Beacon> Beacon { get; set; }
     }
 }
