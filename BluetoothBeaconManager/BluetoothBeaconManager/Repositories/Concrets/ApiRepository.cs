@@ -25,17 +25,16 @@ namespace BluetoothBeaconManager.Repositories.Concrets
             }
         }
 
-        public IEnumerable<Device> GetActiveDevices()
+        public IEnumerable<Device> GetActiveVehicles(List<string> groupFilter)
         {
-            try
-            {
-                return _api.CallAsync<List<Device>>("Get", typeof(Device)).Result.Where(d => d.IsActive());
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            return _api.CallAsync<List<Device>>("Get", typeof(Device),
+                new
+                {
+                    search = new DeviceSearch
+                    {
+                        Groups = groupFilter.Select(g => new GroupSearch { Id = Id.Create(g) }).ToList()
+                    }
+                }).Result.Where(v => v.IsActive());
         }
 
         public Device GetDeviceById(string id)
@@ -124,5 +123,17 @@ namespace BluetoothBeaconManager.Repositories.Concrets
                 throw;
             }
         }
+        public IEnumerable<Device> GetAllDevices()
+        {
+            return _api.CallAsync<List<Device>>("Get", typeof(Device)).Result;
+        }
+        public List<string> GetListFromCommaSeparatedString(string items)
+        {
+            string[] strArray = new string[0];
+            if (items != null)
+                strArray = items.Split(new string[1] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            return ((IEnumerable<string>)strArray).Select<string, string>((Func<string, string>)(i => i)).ToList<string>();
+        }
+
     }
 }
